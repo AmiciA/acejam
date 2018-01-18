@@ -3,7 +3,7 @@ var activeSelection;
 var activeIndex = 0;
 
 var prepIndex = 0;
-var prepArray = [];
+var prepArray = ['test'];
 var prepIndexA;
 var prepIndexB;
 var prepIndexC;
@@ -62,13 +62,22 @@ document.addEventListener('keydown', function(event) {
   
   /* --- ADDING TO PREP --- */
   // Enter
-  else if (event.which === 13) {
-    for (var i = 0; i < prepArray.length; i++) {
-      //console.log('array for loop ' + prepArray[i])
+  else if (event.which === 13) {  //fIx SHiT HerE
+    for (var i = 0; i < prepArray.length; i++) { console.log('entering for loop');
+      if (activeIndex == prepArray[i]) {
+        console.log('already selected, dummy');
+        prepArray.pop();
+      }
+      else { console.log('activeIndex not found in prepArray');
+        prepArray.push(activeIndex);
+        addClass(activeSelection, 'selected');
+        prepTotal += cakeList[activeIndex][1];
+        prepIndex++;
+      }
     }
     
-    if (prepIndex == 0) {
-      //prepArray.push(activeIndex);
+    /*if (prepIndex == 0) {
+      prepArray.push(activeIndex);
       addClass(activeSelection, 'selected');
       document.getElementById('s1').innerHTML = cakeList[activeIndex][0];
       prepTotal += cakeList[activeIndex][1];
@@ -77,6 +86,7 @@ document.addEventListener('keydown', function(event) {
     }
     else if (prepIndex == 1) {
       if (activeIndex !== prepIndexA) {
+        prepArray.push(activeIndex);
         addClass(activeSelection, 'selected');
         document.getElementById('s2').innerHTML = cakeList[activeIndex][0];
         prepTotal += cakeList[activeIndex][1];
@@ -84,6 +94,7 @@ document.addEventListener('keydown', function(event) {
         prepIndexB = activeIndex;
       }
       else {
+        //prepArray.pop();
         removeClass(activeSelection, 'selected');
         document.getElementById('s1').innerHTML = '_';
         prepTotal -= cakeList[activeIndex][1];
@@ -92,6 +103,7 @@ document.addEventListener('keydown', function(event) {
     }
     else if (prepIndex == 2) {
       if (activeIndex !== prepIndexB) {
+        prepArray.push(activeIndex);
         addClass(activeSelection, 'selected');
         document.getElementById('s3').innerHTML = cakeList[activeIndex][0];
         prepTotal += cakeList[activeIndex][1];
@@ -99,6 +111,7 @@ document.addEventListener('keydown', function(event) {
         prepIndexC = activeIndex;
       }
       else {
+        //prepArray.pop();
         removeClass(activeSelection, 'selected');
         document.getElementById('s2').innerHTML = '_';
         prepTotal -= cakeList[activeIndex][1];
@@ -106,12 +119,16 @@ document.addEventListener('keydown', function(event) {
       } 
     }
     else if (prepIndex == 3 && activeIndex == prepIndexC) {
+      //prepArray.pop();
       removeClass(activeSelection, 'selected');
       document.getElementById('s3').innerHTML = '_';
       prepTotal -= cakeList[activeIndex][1];
       prepIndex--;
-    }
-    console.log('prepTotal: ' + prepTotal)
+    }*/
+    document.getElementById('array').innerHTML = prepArray;
+    console.log('prepArray: ' + prepArray);
+    //console.log('prepTotal: ' + prepTotal);
+    //console.log('prepIndex: ' + prepIndex)
   }
   
   /* --- BAKING RESULT --- */
