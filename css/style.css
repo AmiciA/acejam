@@ -1,3 +1,7 @@
+li.active {
+  background: gold
+}
+
 li.selected {
-    background:yellow
+  background: cornflowerblue;
 }
