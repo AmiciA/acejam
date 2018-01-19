@@ -1,5 +1,6 @@
 li.active {
-  background: gold
+  background: gold;
+  padding: 5px;
 }
 
 li.selected {

@@ -1,3 +1,5 @@
+/* --- LIST OF INGREDIENTS --- */
+// ['taste', calculation value, amount in inventory]
 var cakeList = [
   ['yum', 2],
   ['yum', 2],

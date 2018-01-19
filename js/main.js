@@ -3,7 +3,7 @@ var activeSelection;
 var activeIndex = 0;
 
 var prepIndex = 0;
-var prepArray = ['test'];
+var prepArray = [];
 var prepIndexA;
 var prepIndexB;
 var prepIndexC;
@@ -62,73 +62,38 @@ document.addEventListener('keydown', function(event) {
   
   /* --- ADDING TO PREP --- */
   // Enter
-  else if (event.which === 13) {  //fIx SHiT HerE
-    for (var i = 0; i < prepArray.length; i++) { console.log('entering for loop');
+  else if (event.which === 13) {  //fIx SHiT HerE — don't add an index to the array, just add the whole inside array item from cakelist[]!
+    for (var i = 0; i < prepArray.length; i++) {
+      console.log('entering for loop, activeIndex is: ' +activeIndex+ '. prepArray[i] is: ' +prepArray[i]);
       if (activeIndex == prepArray[i]) {
-        console.log('already selected, dummy');
+        console.log('IF-found!');
         prepArray.pop();
-      }
-      else { console.log('activeIndex not found in prepArray');
-        prepArray.push(activeIndex);
-        addClass(activeSelection, 'selected');
-        prepTotal += cakeList[activeIndex][1];
-        prepIndex++;
+        prepIndex--;
+        prepTotal -= cakeList[activeIndex][1];
+        removeClass(activeSelection, 'selected');
+        document.getElementById('array').innerHTML = prepArray;
+        
+        console.log('prepArray: ' + prepArray);
+        console.log('activeIndex: ' + activeIndex);
+        console.log('prepTotal: '+prepTotal);
+        console.log('—');
+        
+        return;
       }
     }
     
-    /*if (prepIndex == 0) {
-      prepArray.push(activeIndex);
-      addClass(activeSelection, 'selected');
-      document.getElementById('s1').innerHTML = cakeList[activeIndex][0];
-      prepTotal += cakeList[activeIndex][1];
-      prepIndex++;
-      prepIndexA = activeIndex;
-    }
-    else if (prepIndex == 1) {
-      if (activeIndex !== prepIndexA) {
-        prepArray.push(activeIndex);
-        addClass(activeSelection, 'selected');
-        document.getElementById('s2').innerHTML = cakeList[activeIndex][0];
-        prepTotal += cakeList[activeIndex][1];
-        prepIndex++;
-        prepIndexB = activeIndex;
-      }
-      else {
-        //prepArray.pop();
-        removeClass(activeSelection, 'selected');
-        document.getElementById('s1').innerHTML = '_';
-        prepTotal -= cakeList[activeIndex][1];
-        prepIndex--;
-      }
-    }
-    else if (prepIndex == 2) {
-      if (activeIndex !== prepIndexB) {
-        prepArray.push(activeIndex);
-        addClass(activeSelection, 'selected');
-        document.getElementById('s3').innerHTML = cakeList[activeIndex][0];
-        prepTotal += cakeList[activeIndex][1];
-        prepIndex++;
-        prepIndexC = activeIndex;
-      }
-      else {
-        //prepArray.pop();
-        removeClass(activeSelection, 'selected');
-        document.getElementById('s2').innerHTML = '_';
-        prepTotal -= cakeList[activeIndex][1];
-        prepIndex--;
-      } 
-    }
-    else if (prepIndex == 3 && activeIndex == prepIndexC) {
-      //prepArray.pop();
-      removeClass(activeSelection, 'selected');
-      document.getElementById('s3').innerHTML = '_';
-      prepTotal -= cakeList[activeIndex][1];
-      prepIndex--;
-    }*/
+    console.log('IF-not-found, so okay to add');
+    prepArray.push(activeIndex);
+    prepIndex++;
+    prepTotal += cakeList[activeIndex][1];
+    addClass(activeSelection, 'selected');
     document.getElementById('array').innerHTML = prepArray;
+    
     console.log('prepArray: ' + prepArray);
-    //console.log('prepTotal: ' + prepTotal);
-    //console.log('prepIndex: ' + prepIndex)
+    console.log('activeIndex: ' + activeIndex);
+    console.log('added ingred desc: '+cakeList[activeIndex][0]);
+    console.log('prepTotal: '+prepTotal);
+    console.log('—');
   }
   
   /* --- BAKING RESULT --- */
