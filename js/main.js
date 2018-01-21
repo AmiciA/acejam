@@ -9,8 +9,15 @@ var prepIndexB;
 var prepIndexC;
 var prepTotal = 0;
 
-var resultText;
+/* --- GENERATE HTML LIST FROM ARRAY --- */
+for (var i = 0; i < cakeList.length; i++){
+    var li = document.createElement('li');
+    list.appendChild(li);
+    //li.innerHTML= 'Item ' + i + ': ' + cakeList[i][0];
+    li.innerHTML= 'Strange Item ' + i + '…'
+}
 
+/* --- INTERACTIONS --- */
 document.addEventListener('keydown', function(event) {
   
   /* --- BROWSING ITEMS --- */
@@ -62,8 +69,8 @@ document.addEventListener('keydown', function(event) {
   
   /* --- ADDING TO PREP --- */
   // Enter
-  else if (event.which === 13) {  //fIx SHiT HerE — don't add an index to the array, just add the whole inside array item from cakelist[]!
-    for (var i = 0; i < prepArray.length; i++) {
+  else if (event.which === 13) { // just add the array instead of messing around with index?
+    for (var i = 0; i <= prepArray.length; i++) {
       console.log('entering for loop, activeIndex is: ' +activeIndex+ '. prepArray[i] is: ' +prepArray[i]);
       if (activeIndex == prepArray[i]) {
         console.log('IF-found!');
@@ -82,39 +89,53 @@ document.addEventListener('keydown', function(event) {
       }
     }
     
-    console.log('IF-not-found, so okay to add');
-    prepArray.push(activeIndex);
-    prepIndex++;
-    prepTotal += cakeList[activeIndex][1];
-    addClass(activeSelection, 'selected');
-    document.getElementById('array').innerHTML = prepArray;
-    
-    console.log('prepArray: ' + prepArray);
-    console.log('activeIndex: ' + activeIndex);
-    console.log('added ingred desc: '+cakeList[activeIndex][0]);
-    console.log('prepTotal: '+prepTotal);
-    console.log('—');
+    if (prepIndex <= 2) {
+      console.log('IF-not-found, so okay to add');
+      prepArray.push(activeIndex);
+      prepIndex++;
+      prepTotal += cakeList[activeIndex][1];
+      addClass(activeSelection, 'selected');
+      document.getElementById('array').innerHTML = prepArray;
+
+      console.log('prepArray: ' + prepArray);
+      console.log('activeIndex: ' + activeIndex);
+      console.log('added ingred desc: '+cakeList[activeIndex][0]);
+      console.log('prepTotal: '+prepTotal);
+      console.log('—'); 
+    }
   }
   
   /* --- BAKING RESULT --- */
   // Y
-  else if (event.which === 89 && prepIndex == 3) {
+  else if (event.which === 89) {
     if (prepTotal <= 2) {
-      resultText = 'Disgusting!';
+      window.alert('Wow, you baked a disgusting cake with ' + cakeList[prepArray[0]][2] + ', ' + cakeList[prepArray[1]][2] + ', and ' + cakeList[prepArray[2]][2]);
+      savedCakes[2]+=1;
+      console.log('SAVEDCAKES: ' + savedCakes);
     }
     else if (prepTotal >= 5) {
-      resultText = 'Amazing!';
+      window.alert('Wow, you baked an amazing cake with ' + cakeList[prepArray[0]][2] + ', ' + cakeList[prepArray[1]][2] + ', and ' + cakeList[prepArray[2]][2]);
     }
     else {
-      resultText = 'Ehhcaptable.'
+      window.alert('Wow, you baked an acceptable cake with ' + cakeList[prepArray[0]][2] + ', ' + cakeList[prepArray[1]][2] + ', and ' + cakeList[prepArray[2]][2]);
     }
-    document.getElementById('result').innerHTML = resultText;
+    
+    // Remove selection classes
+    var selectedLis = document.getElementsByClassName('selected');
+    while (selectedLis.length){
+      console.log('SELDLIS: '+selectedLis[i]);
+      selectedLis[0].className = selectedLis[0].className.replace(/\bselected\b/g, "");
+    }
+    
+    // Reset prep
+    prepIndex = 0;
+    prepTotal = 0;
+    prepArray = [];
+    
   } 
 }, false);
 
-function updateHTML() {
-  
-}
+
 
 /* --- ADD/REMOVE CLASSES --- */
 function removeClass(el, className) {
