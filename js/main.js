@@ -12,16 +12,15 @@ var prepTotal = 0;
 /* --- CREATE INGREDIENTS LIST --- */
 
 // Generate list from array
-for (var i = 0; i < cakeList.length; i++){
+for (var i = 0; i < cakeList.length; i++) {
   var li = document.createElement('li');
   var span = document.createElement('span');
-  //list.appendChild(span);
   list.appendChild(li);
-  li.innerHTML = '[<span id=i' + cakeList[i][2] + '>iX</span>] <img src="assets/' + i + '.png" height="24" width="24"></a> ' + cakeList[i][1];
-  //span.innerHTML = cakeList[i][2];
+  li.innerHTML = '[<span id=i' + i + '>' + cakeList[i][2] + '</span>] <img src="assets/' + i + '.png" height="24" width="24"></a> ' + cakeList[i][1];
+  document.getElementById('i'+i).innerHTML = cakeList[i][2];
 }
 
-// Randomize list order
+// Randomize list order - too much work?
 /*for (var i = list.children.length; i >= 0; i--) {
     list.appendChild(list.children[Math.random() * i | 0]);
 }*/
@@ -78,57 +77,52 @@ document.addEventListener('keydown', function(event) {
   
   /* --- ADDING TO PREP --- */
   // Enter
-  else if (event.which === 13) { // just add the array instead of messing around with index?
-    for (var i = 0; i <= prepArray.length; i++) {
-      console.log('entering for loop, activeIndex is: ' + activeIndex + '. prepArray[i] is: ' + prepArray[i]);
-      if (activeIndex == prepArray[i]) {
-        console.log('IF-found!');
-        prepArray.pop();
-        prepIndex--;
-        prepTotal -= cakeList[activeIndex][0];
-        removeClass(activeSelection, 'selected');
-        document.getElementById('display_inventory').innerHTML = '[' + prepArray + ']';
-        
-        console.log('prepArray: ' + prepArray);
-        console.log('activeIndex: ' + activeIndex);
-        console.log('prepTotal: '+prepTotal);
-        console.log('—');
-        
-        return;
-      }
+  else if (event.which === 13) {
+    var amt = document.getElementById('i'+activeIndex);
+    
+    if (cakeList[activeIndex][5] == true) {         // SELECTING AN ALREADY SELECTED ITEM
+      cakeList[activeIndex][5] = false;             // unflag this item as selected
+      prepIndex--;                                  // remove one from the countup to max items in inventory (3)
+      prepTotal -= cakeList[activeIndex][0];        // remove the value of this from the rating calculation
+      removeClass(activeSelection, 'selected');     // remove the visual hilite
+      cakeList[activeIndex][2] +=1;                 // return 1 instance to cupboard
+      amt.innerHTML = cakeList[activeIndex][2];     // update cupboard display
+      console.log('selected this item');
     }
     
-    if (prepIndex <= 2) {
-      console.log('IF-not-found, so okay to add');
-      prepArray.push(activeIndex);
-      prepIndex++;
-      prepTotal += cakeList[activeIndex][0];
-      addClass(activeSelection, 'selected');
-      document.getElementById('display_inventory').innerHTML = '[' + prepArray + ']';
-
-      console.log('prepArray: ' + prepArray);
-      console.log('activeIndex: ' + activeIndex);
-      console.log('added ingred desc: '+cakeList[activeIndex][0]);
-      console.log('prepTotal: '+prepTotal);
-      console.log('—'); 
+    else if (cakeList[activeIndex][5] == false      // SELECTING UNSELECTED ITEMS
+             && prepIndex <= 2                      // (UP TO 3 TOTAL)
+             && cakeList[activeIndex][2] > 0) {     // (AS LONG AS INVENTORY REMAINS)
+      cakeList[activeIndex][5] = true;              // flag this item as selected
+      prepIndex++;                                  // add one to the countup to max items in inventory (3)
+      prepTotal += cakeList[activeIndex][0];        // add the value of this to the rating calculation
+      addClass(activeSelection, 'selected');        // add visual hilite
+      cakeList[activeIndex][2] -=1;                 // remove 1 instance from cupboard
+      amt.innerHTML = cakeList[activeIndex][2];     // update cupboard display
+      console.log('selected this item');
     }
   }
   
   /* --- BAKING RESULT --- */
   // Y
   else if (event.which === 89) {
-    shuffleArray(prepArray);
+    // shuffleArray(prepArray); // this makes it too complicated to guess which ingredients cause good effects
+    for (i = 0; i < cakeList.length; i++) {
+      if (cakeList[i][5] == true) {
+        prepArray.push(cakeList[i]);
+      }
+    }
     
     if (prepTotal <= 2) {
-      window.alert('A mound of ' + cakeList[prepArray[0]][3] + ' covered in ' + cakeList[prepArray[1]][3] + ' and ' + cakeList[prepArray[2]][3] + '. No human would classify this creation as a cake.');
+      window.alert('A mound of ' + prepArray[0][3] + ' covered in ' + prepArray[1][3] + ' and ' + prepArray[2][3] + '. No human would classify this creation as a cake.');
       savedCakes[2]+=1;
     }
     else if (prepTotal >= 5) {
-      window.alert('Incroyable! You\'ve sculpted a culinary masterpiece: a ' + cakeList[prepArray[0]][3] + ' cake, topped with ' + cakeList[prepArray[1]][4] + ' glaze and ' + cakeList[prepArray[2]][4] + ' sprinkles! The gods weep before your creation.');
+      window.alert('Incroyable! You\'ve sculpted a culinary masterpiece: a ' + prepArray[0][3] + ' cake, topped with ' + prepArray[1][4] + ' glaze and ' + prepArray[2][4] + ' sprinkles! The gods weep before your creation.');
       savedCakes[0]+=1;
     }
     else {
-      window.alert('Well, it\'s definitely a cake. It looks like a loaf of ' + cakeList[prepArray[0]][3] + ' covered with ' + cakeList[prepArray[1]][3] + ' sauce and topped with ' + cakeList[prepArray[2]][4] + '. It is edible.');
+      window.alert('Well, it\'s definitely a cake. It looks like a loaf of ' + prepArray[0][3] + ' covered with ' + prepArray[1][3] + ' sauce and topped with ' + prepArray[2][4] + '. It is edible.');
       savedCakes[1]+=1;
     }
     
@@ -141,11 +135,13 @@ document.addEventListener('keydown', function(event) {
       selectedLis[0].className = selectedLis[0].className.replace(/\bselected\b/g, "");
     }
     
-    // Reset prep
+    // Reset prep areas
     prepIndex = 0;
     prepTotal = 0;
     prepArray = [];
-    document.getElementById('display_inventory').innerHTML = '[inventory empty]';
+    for (i = 0; i < cakeList.length; i++) {
+      cakeList[i][5] = false;
+    }
   } 
 }, false);
 
