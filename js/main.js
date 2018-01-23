@@ -9,13 +9,22 @@ var prepIndexB;
 var prepIndexC;
 var prepTotal = 0;
 
-/* --- GENERATE HTML LIST FROM ARRAY --- */
+/* --- CREATE INGREDIENTS LIST --- */
+
+// Generate list from array
 for (var i = 0; i < cakeList.length; i++){
-    var li = document.createElement('li');
-    list.appendChild(li);
-    //li.innerHTML= 'Item ' + i + ': ' + cakeList[i][0];
-    li.innerHTML= 'Strange Item ' + i + '…'
+  var li = document.createElement('li');
+  var span = document.createElement('span');
+  //list.appendChild(span);
+  list.appendChild(li);
+  li.innerHTML = '[<span id=i' + cakeList[i][2] + '>iX</span>] <img src="assets/' + i + '.png" height="24" width="24"></a> ' + cakeList[i][1];
+  //span.innerHTML = cakeList[i][2];
 }
+
+// Randomize list order
+/*for (var i = list.children.length; i >= 0; i--) {
+    list.appendChild(list.children[Math.random() * i | 0]);
+}*/
 
 /* --- INTERACTIONS --- */
 document.addEventListener('keydown', function(event) {
@@ -71,14 +80,14 @@ document.addEventListener('keydown', function(event) {
   // Enter
   else if (event.which === 13) { // just add the array instead of messing around with index?
     for (var i = 0; i <= prepArray.length; i++) {
-      console.log('entering for loop, activeIndex is: ' +activeIndex+ '. prepArray[i] is: ' +prepArray[i]);
+      console.log('entering for loop, activeIndex is: ' + activeIndex + '. prepArray[i] is: ' + prepArray[i]);
       if (activeIndex == prepArray[i]) {
         console.log('IF-found!');
         prepArray.pop();
         prepIndex--;
-        prepTotal -= cakeList[activeIndex][1];
+        prepTotal -= cakeList[activeIndex][0];
         removeClass(activeSelection, 'selected');
-        document.getElementById('array').innerHTML = prepArray;
+        document.getElementById('display_inventory').innerHTML = '[' + prepArray + ']';
         
         console.log('prepArray: ' + prepArray);
         console.log('activeIndex: ' + activeIndex);
@@ -93,9 +102,9 @@ document.addEventListener('keydown', function(event) {
       console.log('IF-not-found, so okay to add');
       prepArray.push(activeIndex);
       prepIndex++;
-      prepTotal += cakeList[activeIndex][1];
+      prepTotal += cakeList[activeIndex][0];
       addClass(activeSelection, 'selected');
-      document.getElementById('array').innerHTML = prepArray;
+      document.getElementById('display_inventory').innerHTML = '[' + prepArray + ']';
 
       console.log('prepArray: ' + prepArray);
       console.log('activeIndex: ' + activeIndex);
@@ -108,17 +117,22 @@ document.addEventListener('keydown', function(event) {
   /* --- BAKING RESULT --- */
   // Y
   else if (event.which === 89) {
+    shuffleArray(prepArray);
+    
     if (prepTotal <= 2) {
-      window.alert('Wow, you baked a disgusting cake with ' + cakeList[prepArray[0]][2] + ', ' + cakeList[prepArray[1]][2] + ', and ' + cakeList[prepArray[2]][2]);
+      window.alert('A mound of ' + cakeList[prepArray[0]][3] + ' covered in ' + cakeList[prepArray[1]][3] + ' and ' + cakeList[prepArray[2]][3] + '. No human would classify this creation as a cake.');
       savedCakes[2]+=1;
-      console.log('SAVEDCAKES: ' + savedCakes);
     }
     else if (prepTotal >= 5) {
-      window.alert('Wow, you baked an amazing cake with ' + cakeList[prepArray[0]][2] + ', ' + cakeList[prepArray[1]][2] + ', and ' + cakeList[prepArray[2]][2]);
+      window.alert('Incroyable! You\'ve sculpted a culinary masterpiece: a ' + cakeList[prepArray[0]][3] + ' cake, topped with ' + cakeList[prepArray[1]][4] + ' glaze and ' + cakeList[prepArray[2]][4] + ' sprinkles! The gods weep before your creation.');
+      savedCakes[0]+=1;
     }
     else {
-      window.alert('Wow, you baked an acceptable cake with ' + cakeList[prepArray[0]][2] + ', ' + cakeList[prepArray[1]][2] + ', and ' + cakeList[prepArray[2]][2]);
+      window.alert('Well, it\'s definitely a cake. It looks like a loaf of ' + cakeList[prepArray[0]][3] + ' covered with ' + cakeList[prepArray[1]][3] + ' sauce and topped with ' + cakeList[prepArray[2]][4] + '. It is edible.');
+      savedCakes[1]+=1;
     }
+    
+    document.getElementById('display_results').innerHTML = '[' + savedCakes + ']';
     
     // Remove selection classes
     var selectedLis = document.getElementsByClassName('selected');
@@ -131,11 +145,19 @@ document.addEventListener('keydown', function(event) {
     prepIndex = 0;
     prepTotal = 0;
     prepArray = [];
-    
+    document.getElementById('display_inventory').innerHTML = '[inventory empty]';
   } 
 }, false);
 
-
+/* --- DURSTENFIELD SHUFFLE ARRAY --- */
+function shuffleArray(array) {
+  for (var i = array.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+}
 
 /* --- ADD/REMOVE CLASSES --- */
 function removeClass(el, className) {
