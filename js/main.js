@@ -12,15 +12,15 @@ var prepTotal = 0;
 /* --- CREATE INGREDIENTS LIST --- */
 
 // Generate list from array
-for (var i = 0; i < cakeList.length; i++) {
+for (var i = 0; i < ingredientList.length; i++) {
   var li = document.createElement('li');
   var span = document.createElement('span');
   list.appendChild(li);
-  li.innerHTML = '[<span id=i' + i + '>' + cakeList[i][2] + '</span>] <img src="assets/' + i + '.png" height="24" width="24"></a> ' + cakeList[i][1];
-  document.getElementById('i'+i).innerHTML = cakeList[i][2];
+  li.innerHTML = '[<span id=i' + i + '>' + ingredientList[i][2] + '</span>] <img src="assets/' + i + '.png" height="24" width="24"></a> ' + ingredientList[i][1];
+  document.getElementById('i'+i).innerHTML = ingredientList[i][2];
 }
 
-// Randomize list order - too much work?
+// Randomize list order - messes with selection from ingredientList array, don't implement
 /*for (var i = list.children.length; i >= 0; i--) {
     list.appendChild(list.children[Math.random() * i | 0]);
 }*/
@@ -80,25 +80,25 @@ document.addEventListener('keydown', function(event) {
   else if (event.which === 13) {
     var amt = document.getElementById('i'+activeIndex);
     
-    if (cakeList[activeIndex][5] == true) {         // SELECTING AN ALREADY SELECTED ITEM
-      cakeList[activeIndex][5] = false;             // unflag this item as selected
+    if (ingredientList[activeIndex][5] == true) {         // SELECTING AN ALREADY SELECTED ITEM
+      ingredientList[activeIndex][5] = false;             // unflag this item as selected
       prepIndex--;                                  // remove one from the countup to max items in inventory (3)
-      prepTotal -= cakeList[activeIndex][0];        // remove the value of this from the rating calculation
+      prepTotal -= ingredientList[activeIndex][0];        // remove the value of this from the rating calculation
       removeClass(activeSelection, 'selected');     // remove the visual hilite
-      cakeList[activeIndex][2] +=1;                 // return 1 instance to cupboard
-      amt.innerHTML = cakeList[activeIndex][2];     // update cupboard display
+      ingredientList[activeIndex][2] +=1;                 // return 1 instance to cupboard
+      amt.innerHTML = ingredientList[activeIndex][2];     // update cupboard display
       console.log('selected this item');
     }
     
-    else if (cakeList[activeIndex][5] == false      // SELECTING UNSELECTED ITEMS
+    else if (ingredientList[activeIndex][5] == false      // SELECTING UNSELECTED ITEMS
              && prepIndex <= 2                      // (UP TO 3 TOTAL)
-             && cakeList[activeIndex][2] > 0) {     // (AS LONG AS INVENTORY REMAINS)
-      cakeList[activeIndex][5] = true;              // flag this item as selected
+             && ingredientList[activeIndex][2] > 0) {     // (AS LONG AS INVENTORY REMAINS)
+      ingredientList[activeIndex][5] = true;              // flag this item as selected
       prepIndex++;                                  // add one to the countup to max items in inventory (3)
-      prepTotal += cakeList[activeIndex][0];        // add the value of this to the rating calculation
+      prepTotal += ingredientList[activeIndex][0];        // add the value of this to the rating calculation
       addClass(activeSelection, 'selected');        // add visual hilite
-      cakeList[activeIndex][2] -=1;                 // remove 1 instance from cupboard
-      amt.innerHTML = cakeList[activeIndex][2];     // update cupboard display
+      ingredientList[activeIndex][2] -=1;                 // remove 1 instance from cupboard
+      amt.innerHTML = ingredientList[activeIndex][2];     // update cupboard display
       console.log('selected this item');
     }
   }
@@ -106,23 +106,23 @@ document.addEventListener('keydown', function(event) {
   /* --- BAKING RESULT --- */
   // Y
   else if (event.which === 89) {
-    // shuffleArray(prepArray); // this makes it too complicated to guess which ingredients cause good effects
-    for (i = 0; i < cakeList.length; i++) {
-      if (cakeList[i][5] == true) {
-        prepArray.push(cakeList[i]);
+    for (i = 0; i < ingredientList.length; i++) {
+      if (ingredientList[i][5] == true) {
+        prepArray.push(ingredientList[i]);
       }
     }
+    shuffleArray(prepArray);
     
     if (prepTotal <= 2) {
-      window.alert('A mound of ' + prepArray[0][3] + ' covered in ' + prepArray[1][3] + ' and ' + prepArray[2][3] + '. No human would classify this creation as a cake.');
+      window.alert('A mound of ' + prepArray[0][3] + ' covered with a' + prepArray[1][4] + ' layer of ' + prepArray[2][3] + '. No human would classify this creation as a cake.');
       savedCakes[2]+=1;
     }
     else if (prepTotal >= 5) {
-      window.alert('Incroyable! You\'ve sculpted a culinary masterpiece: a ' + prepArray[0][3] + ' cake, topped with ' + prepArray[1][4] + ' glaze and ' + prepArray[2][4] + ' sprinkles! The gods weep before your creation.');
+      window.alert('Incroyable! You\'ve sculpted a culinary masterpiece: a ' + prepArray[0][3] + ' cake, topped with a' + prepArray[1][4] + ' glaze and garnished with ' + prepArray[2][3] + ' sprinkles! The gods weep before your creation.');
       savedCakes[0]+=1;
     }
     else {
-      window.alert('Well, it\'s definitely a cake. It looks like a loaf of ' + prepArray[0][3] + ' covered with ' + prepArray[1][3] + ' sauce and topped with ' + prepArray[2][4] + '. It is edible.');
+      window.alert('Well, it\'s definitely a cake. It looks like a loaf of ' + prepArray[0][3] + ' covered in a' + prepArray[1][4] + ' sauce and topped with ' + prepArray[2][3] + '. It seems edible.');
       savedCakes[1]+=1;
     }
     
@@ -131,7 +131,6 @@ document.addEventListener('keydown', function(event) {
     // Remove selection classes
     var selectedLis = document.getElementsByClassName('selected');
     while (selectedLis.length){
-      console.log('SELDLIS: '+selectedLis[i]);
       selectedLis[0].className = selectedLis[0].className.replace(/\bselected\b/g, "");
     }
     
@@ -139,8 +138,8 @@ document.addEventListener('keydown', function(event) {
     prepIndex = 0;
     prepTotal = 0;
     prepArray = [];
-    for (i = 0; i < cakeList.length; i++) {
-      cakeList[i][5] = false;
+    for (i = 0; i < ingredientList.length; i++) {
+      ingredientList[i][5] = false;
     }
   } 
 }, false);
@@ -152,6 +151,7 @@ function shuffleArray(array) {
     var temp = array[i];
     array[i] = array[j];
     array[j] = temp;
+    console.log('shuffle result = ' + array);
   }
 }
 
