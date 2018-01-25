@@ -1,3 +1,95 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  background-color: #0b0b0b;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  
+    font-size: 18px; 
+  color: #00ff00;
+  font-family: 'More Perfect DOS VGA', monospace;
+}
+
+#content {
+  flex: 1 0 auto;
+  margin: 0 20px;
+  display: flex;
+}
+
+footer {
+  margin: 0 20px;
+}
+
+hr {
+  border-color: #00ff00;
+}
+
+.left {
+  margin-right: 20px;
+  margin-top: 20px;
+}
+
+.right {
+  float: right;
+}
+
+.hilite {
+  background-color: #00ff00;
+  color: #000000;
+}
+
+.chat {
+  margin: 20px 0 20px 20px;
+}
+
+.chat p {
+  margin-bottom: 10px;
+}
+
+.input {
+  animation: blink-anim 1.25s steps(2, start) infinite;
+}
+@keyframes blink-anim {
+  to {  visibility: hidden;  }
+}
+
+.thought {
+  transform-origin: 100px 50%;
+  animation: hover-anim .5s infinite;
+  animation-timing-function: ease;
+}
+@keyframes hover-anim {
+  00% {
+    transform: rotate(1deg);
+    transform: translate(0px, -40px);
+    opacity: .25;
+  }
+  25% {
+    transform: rotate(-1deg);
+    transform: translate(2px, -25px);
+    opacity: .75;
+  }
+  50% {
+    transform: rotate(1deg);
+    transform: translate(-6px, -25px);
+    opacity: .25;
+  }
+  100%{
+    transform: rotate(-1deg);
+    transform: translate(0px, -40px);
+    opacity: .75;
+  }
+}
+
+
+/* --- GAME LOGIC --- */
 li.active {
   background: lightgrey;
   border: 2px solid rebeccapurple;
