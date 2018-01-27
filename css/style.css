@@ -37,6 +37,16 @@ header, footer {
   text-align: right;
 }
 
+#home {
+  float: left;
+  text-decoration: none;
+  color: #00ff00;
+}
+#home:hover {
+  background-color: #00ff00;
+  color: #0b0b0b;
+}
+
 hr {
   border-color: #00ff00;
 }
@@ -86,7 +96,19 @@ li {
   list-style-type: none;
 }
 
-
+.resultsflash {
+  animation: flashout-anim 3s 1;
+}
+@keyframes flashout-anim {
+  from {
+    background-color: #00ff00;
+    color: #0b0b0b;
+  }
+  to {
+    background-color: transparent;
+    color: #00ff00;
+  }
+}
 
 
 #modal {

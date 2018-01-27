@@ -1,0 +1,79 @@
+﻿CAKE-WOW:
+N
+I'm ba-ack~ Wow, shiny cake beau! You've really been studying up on your Common to get all those ingredients right, haven't you?
+
+P
+'Course I have Nora, just for you!
+
+N
+Well, we may just be able to make an interplanetary man out of you yet haha
+
+P
+I'll get the VR rig set up, mind slicing up a few more pieces?
+
+N
+Not at all, love.
+
+---
+
+CAKE-EHH
+N
+Oh! You...'ve been baking! That looks... like you really put some effort in.
+
+P
+Well, it didn't go exactly as planned...
+
+N
+[snort] I can tell! Had some trouble reading the Common on those ingredient labels, huh?
+
+P
+Yeah I know, I'm learning, I'm learning.
+
+N
+Well, I guess it's worth a taste, at least. Go fire up the VR rig, I'll cut us some slices.
+
+P
+On it.
+
+---
+
+CAKE-EWW
+N
+Hey love, I'm hoo-AUGHH! What's that?!
+
+P
+Ummmm. A cake? No?
+
+N
+No. Definitely not a cake. Please incinerate that thing before it gains sentience.
+
+P
+[sigh] Alright.
+
+N
+And Game of Scones is just about to start! Ugh. Well, at least you tried. Alexa, order some Muncho Prisms, UltraPrime Delivery.
+
+A
+α: OK, ordering Muncho Prisms.
+
+---
+
+NOCAKE-TIMEOUT
+
+N
+Hey love, I'm home! Got some snacks ready?
+
+P
+...
+
+N
+Really? Nothing? What have you been doing this whole time?
+
+P
+...
+
+N
+Ugh, fine. Uhh, Alexa, order a dozen Zebra Cakes, UltraPrime Delivery.
+
+N
+And don't look at me like that, you had all the time in the world to make something!

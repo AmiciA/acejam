@@ -18,6 +18,7 @@ var resultModalUp = false;
 var resultBtnContinue = true;
 var rb1 = document.getElementById('rb1');
 var rb2 = document.getElementById('rb2');
+var resultDisplay = document.getElementById('display_results');
 
 /* --- CREATE INGREDIENTS LIST --- */
 
@@ -124,7 +125,9 @@ document.addEventListener('keydown', function(event) {
   else if (event.which === 89) {
     readyInput.innerHTML = 'Y';
     removeClass (readyInput, 'input');
+    removeClass (resultDisplay, 'resultsflash');
     
+    // Creating & shuffling the final array from flagged ingredients in main array
     if (prepIndex == 3) {    
       for (i = 0; i < ingredientList.length; i++) {
         if (ingredientList[i][5] == true) {
@@ -196,6 +199,20 @@ document.addEventListener('keydown', function(event) {
       // Close result modal
       resultModalUp = false;
       resultModal.style.display = 'none';
+      
+      // Show cake count has been updated
+      addClass(resultDisplay, 'resultsflash');
+    }
+    else {
+      if (savedCakes[0] >= 1) { //yum
+        document.location.href = 'result.html' + '?0';
+      }
+      else if (savedCakes[1] >= 1) { //okk
+        document.location.href = 'result.html' + '?1';
+      }
+      else if (savedCakes[2] >= 1) { //eww
+        document.location.href = 'result.html' + '?2';
+      }
     }
   }
 }, false);
