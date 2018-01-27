@@ -2,14 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Baked Aces</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>Ace Baker</title>
   <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
     
 <body>
+  <header>
+    moo
+    <hr>
+  </header>
+  
   <div id="content">
-    <div class="left">
+    <div id="left">
       <p>
         APPLICATIONS
       </p>
@@ -33,7 +38,7 @@
       <p class="hilite">
         M-Chat
       </p>
-      <br>
+      <br><br>
       <p>
         Snapsnap
       </p>
@@ -43,48 +48,35 @@
       </p>
     </div>
     <hr>
-    <div class="chat">
-      <p id="s0" style="visibility: hidden;">
-        Incoming message from Nora Shashkova. Accept (Y/N)?
-      </p>
+    <div id="right">
+      <p id="s0" style="visibility: hidden;">Incoming message from Nora Shashkova. Accept (Y/N)?</p>
       
-      <p id="a1" class="input" style="visibility: hidden;">
-        █
-      </p>
+      <p id="a1" class="input" style="visibility: hidden;">█</p> <!--viz+HTMLreplace+CSS anim: "Y"-->
+            
+      <p id="b2" class="input" style="visibility: hidden;">░</p><br><br> <!--viz+HTML: "Hiya love!..."; br fix inline no margin-->
       
-      <p id="b2" style="visibility: hidden;">
-        Hiya love! They're closing up the bitcoin mine a tad early today, so I'll be off in just a bit. I can't wait to come home and plug into the Game of Scones finale! Feels like I've been waiting xever for this! Hope you've got some luscious snacks prepped like I asked!
-      </p>
+      <p id="a3" class="typeitA3" style="visibility: hidden;"></p><!--TypeIt: "Of course I..."--> 
+      <p id="a3x" class="thought" style="visibility: hidden;">(Shit, totally forgot!)</p>
       
-      <p id="a3" class="input" style="visibility: hidden;">
-        █
-      </p>
-      <p id="a3x" class="thought" style="visibility: hidden;">
-        (Shit, totally forgot!)
-      </p>
+      <p id="b4" class = "input" style="visibility: hidden">░</p><br><br> <!--viz+HTML: "Shiny!..."; br fix inline no margin-->
       
-      <p id="b4" style="visibility: hidden">
-        Shiny! Heading to the teleportal now, see ya in a smidge!
-      </p>
+      <p id="a5" class="typeitA5" style="visibility: hidden"></p>      
+      <p id="a5x" class="thought" style="visibility: hidden;">(Dammit dammit dammit, uhhhh)</p>
       
-      <p id="a5" class="input" style="visibility: hidden">
-        █
-        
-      </p>
-      <p id="a5x" class="thought" style="visibility: hidden;">
-        (Dammit dammit dammit)
-      </p>
-      
-      <!--<p class="type-it"></p>-->
-      
+      <p id="s6" style="visibility: hidden;">Initializing BakeBot.exe...</p>
+      <p id="s7" style="visibility: hidden;">Loading neural network BatterFlow.nn...</p>
+      <p id="s8" style="visibility: hidden;">Programme ready. Switching applications.</p>
+            
     </div>
   </div>
+  
   <footer>
     <hr>
-    <span class="right">29/02/20XX 19:43</span>
+    <span class="botright">29/02/20XX <p id = "time"></p></span>
   </footer>
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/typeit/5.4.1/typeit.js"></script>
   <script src="js/intro.js"></script>
+  <script src="js/common.js"></script>
 </body>
 </html>

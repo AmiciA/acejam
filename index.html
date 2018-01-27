@@ -2,21 +2,86 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Baked Aces</title>
+  <title>Ace Baker</title>
+  <link rel="stylesheet" href="css/fonts.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
     
 <body>
-  <ul id="list"></ul>
+  <header>
+    CAKES CREATED | <span id="display_results">A+: 0 | C: 0 | F-: 0</span>
+    <hr>
+  </header>
+  
+  <div id="content">
+    <div id="left">
+      <p>
+        APPLICATIONS
+      </p>
+      <br>
+      <p>
+        alphaGG
+      </p>
+      <br>
+      <p class="hilite">
+        BakeBot
+      </p>
+      <br><br>
+      <p>
+        CoinClick
+      </p>
+      <br>
+      <p>
+        CryptoKitties
+      </p>
+      <br>
+      <p>
+        M-Chat
+      </p>
+      <br>
+      <p>
+        Snapsnap
+      </p>
+      <br>
+      <p>
+        Writer
+      </p>
+    </div>
+    <hr>
+    <div id="right">
+      <p>Welcome to BakeBot.exe :)</p>
+      <p>Select three (3) ingredients with the UP &amp; DOWN keys and ENTER to prepare a wonderful treat! But be careful not to run out! We only have so much of each ingredient here. Happy baking!</p>
+      
+      <ul id="list"></ul>
+      
+      <br>
+      <span id="bake_question" class="hilite" style="visibility: hidden;">3 ingredients selected. Bake (Y/N)?</span>
+      <span id="bake_input" class="input" style="visibility: hidden;">█</span>
+    </div>
+  </div>
+  
+  <footer>
+    <hr>
+    <span class="botright">29/02/20XX <p id = "time"></p></span>
+  </footer>
+  
+  <div id="modal" style="display: none;">
+    <span class="title">
+      BAKING RESULT
+    </span>
+    <hr>
+    <span id="result_text">
+      Incroyable! You've sculpted a culinary masterpiece: a rum cake, topped with a honeyed glaze and garnished with starfruit sprinkles! The gods weep before your creation.
+    </span>
+    <div class="button_holder">
+      <div id = "rb1" class = "button button_selected">TRY AGAIN</div>
+      <div id = "rb2" class = "button">STOP BAKING</div>
+    </div>
     
-  <span>PRESS Y WHEN 3 INGREDIENTS ARE SELECTED</span>
-  <br><br>
-    
-  <span>RESULTS (yum, okay, eww):
-    <span id="display_results">[no results]</span>
-  </span>
+  </div>
   
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/common.js"></script>
 </body>
 </html>

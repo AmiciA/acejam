@@ -9,6 +9,16 @@ var prepIndexB;
 var prepIndexC;
 var prepTotal = 0;
 
+var readyQuestion = document.getElementById('bake_question')
+var readyInput = document.getElementById('bake_input');
+
+var resultTxt = document.getElementById('result_text');
+var resultModal = document.getElementById('modal');
+var resultModalUp = false;
+var resultBtnContinue = true;
+var rb1 = document.getElementById('rb1');
+var rb2 = document.getElementById('rb2');
+
 /* --- CREATE INGREDIENTS LIST --- */
 
 // Generate list from array
@@ -16,7 +26,7 @@ for (var i = 0; i < ingredientList.length; i++) {
   var li = document.createElement('li');
   var span = document.createElement('span');
   list.appendChild(li);
-  li.innerHTML = '[<span id=i' + i + '>' + ingredientList[i][2] + '</span>] <img src="assets/' + i + '.png" height="24" width="24"></a> ' + ingredientList[i][1];
+  li.innerHTML = '[<span id=i'+i+'>'+ingredientList[i][2]+'</span>] <img src="assets/'+i+'.png" height="18" width="18" style="background: url(assets/'+i+'_blk.png) no-repeat;"> ' + ingredientList[i][1];
   document.getElementById('i'+i).innerHTML = ingredientList[i][2];
 }
 
@@ -76,72 +86,118 @@ document.addEventListener('keydown', function(event) {
   }
   
   /* --- ADDING TO PREP --- */
-  // Enter
-  else if (event.which === 13) {
+  // Enter (when result modal closed)
+  else if (event.which === 13 && resultModalUp != true) {
     var amt = document.getElementById('i'+activeIndex);
     
     if (ingredientList[activeIndex][5] == true) {         // SELECTING AN ALREADY SELECTED ITEM
       ingredientList[activeIndex][5] = false;             // unflag this item as selected
-      prepIndex--;                                  // remove one from the countup to max items in inventory (3)
+      prepIndex--;                                        // remove one from the countup to max items in inventory (3)
       prepTotal -= ingredientList[activeIndex][0];        // remove the value of this from the rating calculation
-      removeClass(activeSelection, 'selected');     // remove the visual hilite
+      removeClass(activeSelection, 'selected');           // remove the visual hilite
       ingredientList[activeIndex][2] +=1;                 // return 1 instance to cupboard
       amt.innerHTML = ingredientList[activeIndex][2];     // update cupboard display
-      console.log('selected this item');
+      if (prepIndex < 3) {                                // remove baking prompt when below max amount
+        readyQuestion.style.visibility = 'hidden';
+        readyInput.style.visibility = 'hidden';
+      }
     }
     
     else if (ingredientList[activeIndex][5] == false      // SELECTING UNSELECTED ITEMS
-             && prepIndex <= 2                      // (UP TO 3 TOTAL)
+             && prepIndex <= 2                            // (UP TO 3 TOTAL)
              && ingredientList[activeIndex][2] > 0) {     // (AS LONG AS INVENTORY REMAINS)
       ingredientList[activeIndex][5] = true;              // flag this item as selected
-      prepIndex++;                                  // add one to the countup to max items in inventory (3)
+      prepIndex++;                                        // add one to the countup to max items in inventory (3)
       prepTotal += ingredientList[activeIndex][0];        // add the value of this to the rating calculation
-      addClass(activeSelection, 'selected');        // add visual hilite
+      addClass(activeSelection, 'selected');              // add visual hilite
       ingredientList[activeIndex][2] -=1;                 // remove 1 instance from cupboard
       amt.innerHTML = ingredientList[activeIndex][2];     // update cupboard display
-      console.log('selected this item');
+      if (prepIndex == 3) {                               // show baking prompt if max amount selected
+        readyQuestion.style.visibility = 'visible';
+        readyInput.style.visibility = 'visible';
+      }
     }
   }
   
   /* --- BAKING RESULT --- */
   // Y
   else if (event.which === 89) {
-    for (i = 0; i < ingredientList.length; i++) {
-      if (ingredientList[i][5] == true) {
-        prepArray.push(ingredientList[i]);
+    readyInput.innerHTML = 'Y';
+    removeClass (readyInput, 'input');
+    
+    if (prepIndex == 3) {    
+      for (i = 0; i < ingredientList.length; i++) {
+        if (ingredientList[i][5] == true) {
+          prepArray.push(ingredientList[i]);
+        }
       }
+      shuffleArray(prepArray);
+
+      if (prepTotal <= 2) {
+        resultTxt.innerHTML = 'A mound of ' + prepArray[0][3] + ' covered with a' + prepArray[1][4] + ' layer of ' + prepArray[2][3] + '. No human would classify this creation as a cake.';
+        savedCakes[2]+=1;
+      }
+      else if (prepTotal >= 5) {
+        resultTxt.innerHTML = 'Incroyable! You\'ve sculpted a culinary masterpiece: a ' + prepArray[0][3] + ' cake, topped with a' + prepArray[1][4] + ' glaze and garnished with ' + prepArray[2][3] + ' sprinkles! The gods weep before your creation.';
+        savedCakes[0]+=1;
+      }
+      else {
+        resultTxt.innerHTML = 'Well, it\'s definitely a cake. It looks like a loaf of ' + prepArray[0][3] + ' covered in a' + prepArray[1][4] + ' sauce and topped with ' + prepArray[2][3] + '. It seems edible.';
+        savedCakes[1]+=1;
+      }
+
+      // Show the modal
+      resultModalUp = true;
+      document.getElementById('display_results').innerHTML = 'A+: ' + savedCakes[0] + ' | C: ' + savedCakes[1] + ' | F-: ' + savedCakes[2];
+      resultModal.style.display = 'block';
     }
-    shuffleArray(prepArray);
-    
-    if (prepTotal <= 2) {
-      window.alert('A mound of ' + prepArray[0][3] + ' covered with a' + prepArray[1][4] + ' layer of ' + prepArray[2][3] + '. No human would classify this creation as a cake.');
-      savedCakes[2]+=1;
+  }
+  
+  // Left
+  else if (event.which === 37 && resultModalUp == true) {
+    if (resultBtnContinue != true) {
+      resultBtnContinue = true;
+      removeClass(rb2, 'button_selected');
+      addClass(rb1, 'button_selected');
     }
-    else if (prepTotal >= 5) {
-      window.alert('Incroyable! You\'ve sculpted a culinary masterpiece: a ' + prepArray[0][3] + ' cake, topped with a' + prepArray[1][4] + ' glaze and garnished with ' + prepArray[2][3] + ' sprinkles! The gods weep before your creation.');
-      savedCakes[0]+=1;
+  }
+  
+  // Right
+  else if (event.which === 39 && resultModalUp == true) {
+    if (resultBtnContinue == true) {
+      resultBtnContinue = false;
+      removeClass(rb1, 'button_selected');
+      addClass(rb2, 'button_selected');
     }
-    else {
-      window.alert('Well, it\'s definitely a cake. It looks like a loaf of ' + prepArray[0][3] + ' covered in a' + prepArray[1][4] + ' sauce and topped with ' + prepArray[2][3] + '. It seems edible.');
-      savedCakes[1]+=1;
+  }
+  
+  // Enter (when result modal open)
+  else if (event.which === 13 && resultModalUp == true) {
+    if (resultBtnContinue == true) {
+      // Remove selection classes
+      var selectedLis = document.getElementsByClassName('selected');
+      while (selectedLis.length){
+        selectedLis[0].className = selectedLis[0].className.replace(/\bselected\b/g, "");
+      }
+      
+      // Reset & hide baking prompt
+      readyQuestion.style.visibility = 'hidden';
+      readyInput.innerHTML = '█';
+      readyInput.style.visibility = 'hidden';
+
+      // Reset prep areas
+      prepIndex = 0;
+      prepTotal = 0;
+      prepArray = [];
+      for (i = 0; i < ingredientList.length; i++) {
+        ingredientList[i][5] = false;
+      }
+      
+      // Close result modal
+      resultModalUp = false;
+      resultModal.style.display = 'none';
     }
-    
-    document.getElementById('display_results').innerHTML = '[' + savedCakes + ']';
-    
-    // Remove selection classes
-    var selectedLis = document.getElementsByClassName('selected');
-    while (selectedLis.length){
-      selectedLis[0].className = selectedLis[0].className.replace(/\bselected\b/g, "");
-    }
-    
-    // Reset prep areas
-    prepIndex = 0;
-    prepTotal = 0;
-    prepArray = [];
-    for (i = 0; i < ingredientList.length; i++) {
-      ingredientList[i][5] = false;
-    }
-  } 
+  }
 }, false);
 
 /* --- DURSTENFIELD SHUFFLE ARRAY --- */

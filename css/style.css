@@ -1,20 +1,17 @@
-* {
-  margin: 0;
-  padding: 0;
-}
+/* --- RESETS --- */
+* {  margin: 0;  padding: 0;  }
+html, body {  height: 100%;  }
 
-html, body {
-  height: 100%;
-  background-color: #0b0b0b;
-}
 
+/* --- UNIVERSAL STYLES --- */
 body {
   display: flex;
   flex-direction: column;
   
-    font-size: 18px; 
+  font-size: 18px; 
   color: #00ff00;
   font-family: 'More Perfect DOS VGA', monospace;
+  background-color: #0b0b0b;
 }
 
 #content {
@@ -23,36 +20,35 @@ body {
   display: flex;
 }
 
-footer {
+#left {
+  margin: 20px 20px 0 0;
+}
+
+#right {
+  margin: 20px 0 20px 20px;
+}
+
+#right p {
+  margin-bottom: 20px;
+}
+
+header, footer {
   margin: 0 20px;
+  text-align: right;
 }
 
 hr {
   border-color: #00ff00;
 }
 
-.left {
-  margin-right: 20px;
-  margin-top: 20px;
-}
-
-.right {
-  float: right;
-}
-
 .hilite {
+  color: #0b0b0b;
   background-color: #00ff00;
-  color: #000000;
+  display: inline;
 }
 
-.chat {
-  margin: 20px 0 20px 20px;
-}
 
-.chat p {
-  margin-bottom: 10px;
-}
-
+/* --- INTRO TEXT ANIMATIONS --- */
 .input {
   animation: blink-anim 1.25s steps(2, start) infinite;
 }
@@ -67,40 +63,120 @@ hr {
 }
 @keyframes hover-anim {
   00% {
-    transform: rotate(1deg);
-    transform: translate(0px, -40px);
+    transform: rotate(2deg) translate(0px, -50px);
     opacity: .25;
   }
   25% {
-    transform: rotate(-1deg);
-    transform: translate(2px, -25px);
+    transform: rotate(-2deg) translate(2px, -35px);
     opacity: .75;
   }
   50% {
-    transform: rotate(1deg);
-    transform: translate(-6px, -25px);
+    transform: rotate(2deg) translate(-6px, -35px);
     opacity: .25;
   }
   100%{
-    transform: rotate(-1deg);
-    transform: translate(0px, -40px);
+    transform: rotate(-2deg) translate(0px, -50px);
     opacity: .75;
   }
 }
 
 
+/* --- GAME STYLES --- */
+li {
+  list-style-type: none;
+}
+
+
+
+
+#modal {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  margin-top: -20px;
+  margin-left: -112px;
+  width: 400px;
+  height: 225px;
+  
+  outline: 2px solid #00ff00;
+  border: 2px solid #0b0b0b;
+  background-color: #00ff00;
+  color: #0b0b0b;
+}
+
+#modal .title {
+  margin: 5px;
+  text-align: center;
+  display: block;
+}
+
+#result_text {
+  display: block;
+  margin: 10px;
+}
+
+#modal hr {
+  border-color: #0b0b0b;
+}
+
+.button_holder {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 35px;
+  text-align: center;
+}
+
+.button {
+  display: flex;
+  flex: 1 0 auto;
+  display: block;
+  margin: 0 10px;
+  padding: 10px 15px;
+  
+  color: #00ff00;
+  background-color: #0b0b0b;
+  
+
+}
+
+.button_selected {
+  animation: pulse-anim 1.25s steps(2, start) infinite;
+}
+@keyframes pulse-anim {
+  from {
+    outline: 2px solid #00ff00;
+    border: 2px solid #00ff00;
+  }
+  to {
+    outline: 2px solid #0b0b0b;
+    border: 2px solid #00ff00;
+  }
+}
+
 /* --- GAME LOGIC --- */
 li.active {
-  background: lightgrey;
-  border: 2px solid rebeccapurple;
+  color: #0b0b0b;
+  background-color: #00ff00;
   padding: 5px;
 }
 
+li.active img {
+  box-sizing: border-box;
+  width: 18px;
+  height: 18px;
+  padding-left: 18px;
+}
+
 li.selected {
-  background: cornflowerblue;
+  border: 2px solid #00ff00;
+  padding-top: 5px;
 }
 
 li.active.selected {
-  background: cornflowerblue;
-  border: 2px solid rebeccapurple;
+  color: #0b0b0b;
+  background-color: #00ff00;
+  padding: 5px;
+  outline: 2px solid #00ff00;
+  border: 2px solid #0b0b0b;
 }
