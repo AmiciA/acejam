@@ -17,3 +17,8 @@ var ingredientList = [
 
 // [yum, okk, eww]
 var savedCakes = [0, 0, 0];
+
+// Randomize list order - messes with selection from ingredientList array, don't implement
+/*for (var i = list.children.length; i >= 0; i--) {
+    list.appendChild(list.children[Math.random() * i | 0]);
+}*/

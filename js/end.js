@@ -28,7 +28,7 @@ var a4 = document.getElementById('b4');
 var b5 = document.getElementById('a5');
 var a6 = document.getElementById('s6');
 
-
+var button = document.getElementById('button');
 
 
 
@@ -45,7 +45,7 @@ var resultDesc = document.getElementById('result_description');
 /* --- PERFECT CAKE --- */
 if (rating == 0) {
   // image
-  resultImage.src = 'assets/endimages/A.png'
+  resultImage.src = 'assets/endimages/A.png';
   
   //image description
   resultDesc.innerHTML = 'A wonderfully delicious cake!';
@@ -62,7 +62,7 @@ if (rating == 0) {
 /* --- ACCEPTABLE CAKE --- */
 else if (rating == 1) {
   // image
-  resultImage.src = 'assets/endimages/B.png'
+  resultImage.src = 'assets/endimages/B.png';
   
   //image description
   resultDesc.innerHTML = 'A seemingly edible baked good.';
@@ -79,7 +79,7 @@ else if (rating == 1) {
 /* --- DISGUSTING CAKE --- */
 else if (rating == 2) {
   // image
-  resultImage.src = 'assets/endimages/C.png'
+  resultImage.src = 'assets/endimages/C.png';
   
   //image description
   resultDesc.innerHTML = 'An absolutely disgusting monstrosity!';
@@ -93,17 +93,36 @@ else if (rating == 2) {
   });
 }
 
+/* --- NO CAKES --- */
+else if (rating == 3) {
+  // image
+  resultImage.src = 'assets/endimages/D.png'
+  
+  //image description
+  resultDesc.innerHTML = 'You... you didn\'t make anything!';
+  
+  // conversation
+  new TypeIt('.type-it', {
+    speed: 1,
+    cursorChar: '',
+    strings: '<p id = "b1" class="hilite">Hey love, I\'m home! Got some snacks ready?</p><br><br><p id = "a2">...</p><br><p id = "b3" class="hilite">Really? Nothing? What have you been doing this whole time?</p><br><br><p id = "a4">...</p><br><p id = "b5" class="hilite">Ugh, fine. Uhh, Alexa, order a dozen Zebra Saucers, UltraPrime Delivery.</p><br><br><p id = "a6" class="alexa">α: OK, ordering Zebra Saucers.</p><br><br><p id = "b7" class="hilite">And don\'t look at me like that, you had all the time in the world to make something!</p>',
+    callback: MakeButton
+  });
+}
 
 
-
-
+document.addEventListener('keydown', function(event) {
+   if (event.which === 13 && button.style.display == "block") {
+     document.location.href = 'index.html';
+   }
+}, false);
 
 
 
 
 
 function MakeButton() {
-  document.getElementById('button').style.display = "block";
+  button.style.display = "block";
 }
 
 

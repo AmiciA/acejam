@@ -9,8 +9,12 @@
     
 <body>
   <header>
-    <a href="intro.html" id = "home" title="restart game">«═</a>
-    CAKES CREATED | <span id="display_results">A+: 0 | C: 0 | F-: 0</span>
+    CAKES CREATED | 
+    <span id="display_results">
+      <img src="assets/ratingimages/0.png" style="margin-top: 5px;">: <span id = display_results_p>0</span> | 
+      <img src="assets/ratingimages/1.png" style="margin-top: 5px;">: <span id = display_results_o>0</span> | 
+      <img src="assets/ratingimages/2.png" style="margin-top: 5px;">: <span id = display_results_d>0</span>
+    </span>
     <hr>
   </header>
   
@@ -50,8 +54,9 @@
     </div>
     <hr>
     <div id="right">
-      <p>Welcome to BakeBot.exe Σ:)</p>
-      <p>Select three (3) ingredients with the UP &amp; DOWN keys and ENTER to prepare an A+ treat! But be careful not to run out! We only have so much of each ingredient here. Happy baking!</p>
+      <p style="float: right">Close: ESC</p>
+      <p>Welcome to BakeBot Σ:)</p>
+      <p>Select three (3) ingredients with the UP &amp; DOWN keys and ENTER to prepare a shiny treat! But be careful not to run out! We only have so much of each ingredient here. Happy baking!</p>
       
       <ul id="list"></ul>
       
@@ -66,19 +71,22 @@
     <span class="botright">29/02/20XX <p id = "time"></p></span>
   </footer>
   
-  <div id="modal" style="display: none;">
-    <span class="title">
-      BAKING RESULT
-    </span>
-    <hr>
-    <span id="result_text">
-      Incroyable! You've sculpted a culinary masterpiece: a rum cake, topped with a honeyed glaze and garnished with starfruit sprinkles! The gods weep before your creation.
-    </span>
-    <div class="button_holder">
-      <div id = "rb1" class = "button button_selected">TRY AGAIN</div>
-      <div id = "rb2" class = "button">STOP BAKING</div>
-    </div>
+  <div id="modalholder">
+    <a href="intro.html" id = "home" class="gamehome" title="restart game">«═</a>
     
+    <div id="modal" style="display: none;">
+      <span id="title">
+        BAKING RESULT
+      </span>
+      <hr>
+      <span id="result_text">
+        Baking result description. <br> Action.
+      </span>
+      <div class="button_holder">
+        <div id = "rb1" class = "button button_selected">TRY AGAIN</div>
+        <div id = "rb2" class = "button">EXIT BAKEBOT</div>
+      </div>
+    </div>
   </div>
   
   <script src="js/data.js"></script>

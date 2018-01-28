@@ -19,6 +19,13 @@ var resultBtnContinue = true;
 var rb1 = document.getElementById('rb1');
 var rb2 = document.getElementById('rb2');
 var resultDisplay = document.getElementById('display_results');
+var resultDisplayP = document.getElementById('display_results_p');
+var resultDisplayO = document.getElementById('display_results_o');
+var resultDisplayD = document.getElementById('display_results_d');
+var resultDisplayImgP = '<img src="assets/ratingimages/0_blk.png">';
+var resultDisplayImgO = '<img src="assets/ratingimages/1_blk.png">';
+var resultDisplayImgD = '<img src="assets/ratingimages/2_blk.png">';
+var resultDisplayImgT = '<img src="assets/ratingimages/3_blk.png">';
 
 /* --- CREATE INGREDIENTS LIST --- */
 
@@ -31,13 +38,28 @@ for (var i = 0; i < ingredientList.length; i++) {
   document.getElementById('i'+i).innerHTML = ingredientList[i][2];
 }
 
-// Randomize list order - messes with selection from ingredientList array, don't implement
-/*for (var i = list.children.length; i >= 0; i--) {
-    list.appendChild(list.children[Math.random() * i | 0]);
-}*/
-
 /* --- INTERACTIONS --- */
 document.addEventListener('keydown', function(event) {
+  
+  
+  /* --- CHECK IF POSSIBLE TO MAKE CAKE --- */
+  var remain = 0;
+  for (i=0; i<ingredientList.length; i++) {  if (prepIndex == 0 && ingredientList[i][2] > 0) {  remain += 1;  }  }
+  if (prepIndex == 0 && remain < 3) {
+    // show modal
+    resultModalUp = true;
+    resultModal.style.display = 'block';
+    
+    // default button to exit
+    resultBtnContinue = false;
+    removeClass(rb1, 'button_selected');
+    addClass(rb2, 'button_selected');
+    
+    // set title and text
+    document.getElementById('title').innerHTML = resultDisplayImgT + ' OUT OF INGREDIENTS ' + resultDisplayImgT;
+    resultTxt.innerHTML = 'You used up all the ingredients. Wow. <br><br> Nothing else to do here.';
+  }  
+  
   
   /* --- BROWSING ITEMS --- */
   var len = list.getElementsByTagName('li').length - 1;
@@ -120,7 +142,7 @@ document.addEventListener('keydown', function(event) {
     }
   }
   
-  /* --- BAKING RESULT --- */
+  /* --- CALCULATING RESULT --- */
   // Y
   else if (event.which === 89) {
     readyInput.innerHTML = 'Y';
@@ -136,26 +158,41 @@ document.addEventListener('keydown', function(event) {
       }
       shuffleArray(prepArray);
 
+      // Populate the modal with result image & result text, update total cake counter
       if (prepTotal <= 2) {
-        resultTxt.innerHTML = 'A mound of ' + prepArray[0][3] + ' covered with a' + prepArray[1][4] + ' layer of ' + prepArray[2][3] + '. No human would classify this creation as a cake.';
+        document.getElementById('title').innerHTML = resultDisplayImgD + ' DUBIOUS CREATION... ' + resultDisplayImgD;
+        resultTxt.innerHTML = 'A mound of ' + prepArray[0][3] + ' covered with a' + prepArray[1][4] + ' layer of ' + prepArray[2][3] + '. No human would classify this monstrosity as a cake. <br><br> You should definitely try again.';
         savedCakes[2]+=1;
       }
       else if (prepTotal >= 5) {
-        resultTxt.innerHTML = 'Incroyable! You\'ve sculpted a culinary masterpiece: a ' + prepArray[0][3] + ' cake, topped with a' + prepArray[1][4] + ' glaze and garnished with ' + prepArray[2][3] + ' sprinkles! The gods weep before your creation.';
+        document.getElementById('title').innerHTML = resultDisplayImgP + ' PERFECT CAKE! ' + resultDisplayImgP;
+        resultTxt.innerHTML = 'Incredible! You\'ve sculpted a culinary masterpiece: a ' + prepArray[0][3] + ' cake, topped with a' + prepArray[1][4] + ' glaze and garnished with ' + prepArray[2][3] + ' sprinkles! The gods weep before your creation. <br><br> No cake could be more perfect than this one.';
         savedCakes[0]+=1;
+        // select 'end' button by default for perfect cakes
+        resultBtnContinue = false;
+        removeClass(rb1, 'button_selected');
+        addClass(rb2, 'button_selected');
       }
       else {
-        resultTxt.innerHTML = 'Well, it\'s definitely a cake. It looks like a loaf of ' + prepArray[0][3] + ' covered in a' + prepArray[1][4] + ' sauce and topped with ' + prepArray[2][3] + '. It seems edible.';
+        document.getElementById('title').innerHTML = resultDisplayImgO + ' ACCEPTABLE BAKED GOOD ' + resultDisplayImgO;
+        resultTxt.innerHTML = 'Well, it\'s definitely a cake. It looks like a loaf of ' + prepArray[0][3] + ' covered in a' + prepArray[1][4] + ' sauce and topped with ' + prepArray[2][3] + '. It seems edible. <br><br> Try again, if you want.';
         savedCakes[1]+=1;
       }
 
-      // Show the modal
+      // Show the modal & update the header counter
       resultModalUp = true;
-      document.getElementById('display_results').innerHTML = 'A+: ' + savedCakes[0] + ' | C: ' + savedCakes[1] + ' | F-: ' + savedCakes[2];
       resultModal.style.display = 'block';
+      resultDisplayP.innerHTML = savedCakes[0];
+      resultDisplayO.innerHTML = savedCakes[1];
+      resultDisplayD.innerHTML = savedCakes[2];
     }
   }
   
+  else if (event.which === 27) {
+    endGame(savedCakes);
+  }
+  
+  /* --- RESULT MODAL INTERACTIONS --- */
   // Left
   else if (event.which === 37 && resultModalUp == true) {
     if (resultBtnContinue != true) {
@@ -176,6 +213,7 @@ document.addEventListener('keydown', function(event) {
   
   // Enter (when result modal open)
   else if (event.which === 13 && resultModalUp == true) {
+    // Making more cakes
     if (resultBtnContinue == true) {
       // Remove selection classes
       var selectedLis = document.getElementsByClassName('selected');
@@ -203,19 +241,28 @@ document.addEventListener('keydown', function(event) {
       // Show cake count has been updated
       addClass(resultDisplay, 'resultsflash');
     }
+    // Finished
     else {
-      if (savedCakes[0] >= 1) { //yum
-        document.location.href = 'result.html' + '?0';
-      }
-      else if (savedCakes[1] >= 1) { //okk
-        document.location.href = 'result.html' + '?1';
-      }
-      else if (savedCakes[2] >= 1) { //eww
-        document.location.href = 'result.html' + '?2';
-      }
+      endGame(savedCakes);
     }
   }
 }, false);
+
+/* --- PASS FINAL SCORE TO NEXT PAGE --- */
+function endGame(score) {
+  if (score[0] >= 1) { //yum
+    document.location.href = 'result.html' + '?0';
+  }
+  else if (score[1] >= 1) { //okk
+    document.location.href = 'result.html' + '?1';
+  }
+  else if (score[2] >= 1) { //eww
+    document.location.href = 'result.html' + '?2';
+  }
+  else {
+    document.location.href = 'result.html' + '?3';
+  }
+}
 
 /* --- DURSTENFIELD SHUFFLE ARRAY --- */
 function shuffleArray(array) {
