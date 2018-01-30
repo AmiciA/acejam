@@ -4,7 +4,7 @@ A cake-baking game about an asexual couple in _the future_.
 #### Credits
 JS: 
 
-- TypeIt: typeitjs.com
+- TypeIt: https://typeitjs.com/
 
 Music:
 
