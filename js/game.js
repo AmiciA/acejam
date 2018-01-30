@@ -1,23 +1,29 @@
+/* --- INITIAL VARIABLES --- */
+/* Where Game Data Dumped */
 var list = document.getElementById('list');
+
+/* Browsing Markers */
 var activeSelection;
 var activeIndex = 0;
 
+/* Tracking Initially Selected Ingredients */
 var prepIndex = 0;
 var prepArray = [];
-var prepIndexA;
-var prepIndexB;
-var prepIndexC;
 var prepTotal = 0;
 
+/* Prompting Cake-Making */
 var readyQuestion = document.getElementById('bake_question')
 var readyInput = document.getElementById('bake_input');
 
+/* Result Modal */
 var resultTxt = document.getElementById('result_text');
 var resultModal = document.getElementById('modal');
 var resultModalUp = false;
 var resultBtnContinue = true;
 var rb1 = document.getElementById('rb1');
 var rb2 = document.getElementById('rb2');
+
+/* Header Results Display */
 var resultDisplay = document.getElementById('display_results');
 var resultDisplayP = document.getElementById('display_results_p');
 var resultDisplayO = document.getElementById('display_results_o');
@@ -27,8 +33,8 @@ var resultDisplayImgO = '<img src="assets/ratingimages/1_blk.png">';
 var resultDisplayImgD = '<img src="assets/ratingimages/2_blk.png">';
 var resultDisplayImgT = '<img src="assets/ratingimages/3_blk.png">';
 
-/* --- CREATE INGREDIENTS LIST --- */
 
+/* --- DISPLAY INGREDIENTS LIST --- */
 // Generate list from array
 for (var i = 0; i < ingredientList.length; i++) {
   var li = document.createElement('li');
@@ -38,11 +44,11 @@ for (var i = 0; i < ingredientList.length; i++) {
   document.getElementById('i'+i).innerHTML = ingredientList[i][2];
 }
 
+
 /* --- INTERACTIONS --- */
 document.addEventListener('keydown', function(event) {
-  
-  
   /* --- CHECK IF POSSIBLE TO MAKE CAKE --- */
+  // Check how many different ingredient types are left and triggers end state if there's not enough left to make a cake
   var remain = 0;
   for (i=0; i<ingredientList.length; i++) {  if (prepIndex == 0 && ingredientList[i][2] > 0) {  remain += 1;  }  }
   if (prepIndex == 0 && remain < 3) {
@@ -188,12 +194,13 @@ document.addEventListener('keydown', function(event) {
     }
   }
   
+  /* EXIT TO RESULTS PAGE */
   else if (event.which === 27) {
     endGame(savedCakes);
   }
   
   /* --- RESULT MODAL INTERACTIONS --- */
-  // Left
+  // Left (when result modal open)
   else if (event.which === 37 && resultModalUp == true) {
     if (resultBtnContinue != true) {
       resultBtnContinue = true;
@@ -202,7 +209,7 @@ document.addEventListener('keydown', function(event) {
     }
   }
   
-  // Right
+  // Right (when result modal open)
   else if (event.which === 39 && resultModalUp == true) {
     if (resultBtnContinue == true) {
       resultBtnContinue = false;
@@ -241,12 +248,14 @@ document.addEventListener('keydown', function(event) {
       // Show cake count has been updated
       addClass(resultDisplay, 'resultsflash');
     }
-    // Finished
+    
+    // Exit to results page
     else {
       endGame(savedCakes);
     }
   }
 }, false);
+
 
 /* --- PASS FINAL SCORE TO NEXT PAGE --- */
 function endGame(score) {
@@ -259,10 +268,11 @@ function endGame(score) {
   else if (score[2] >= 1) { //eww
     document.location.href = 'result.html' + '?2';
   }
-  else {
+  else { //nothing
     document.location.href = 'result.html' + '?3';
   }
 }
+
 
 /* --- DURSTENFIELD SHUFFLE ARRAY --- */
 function shuffleArray(array) {
@@ -275,6 +285,7 @@ function shuffleArray(array) {
   }
 }
 
+
 /* --- ADD/REMOVE CLASSES --- */
 function removeClass(el, className) {
   if(el.classList) {
@@ -284,7 +295,6 @@ function removeClass(el, className) {
     el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
   }
 };
-
 function addClass(el, className) {
   if(el.classList) {
     el.classList.add(className);

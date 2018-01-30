@@ -4,11 +4,15 @@
   <meta charset="utf-8">
   <title>Ace Baker</title>
   <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
     
 <body>
+  <audio src="assets/bgm.mp3" autoplay></audio>
+  
   <header>
+    <!-- CAKE TRACKING AREA -->
     CAKES CREATED | 
     <span id="display_results">
       <img src="assets/ratingimages/0.png" style="margin-top: 5px;">: <span id = display_results_p>0</span> | 
@@ -19,6 +23,7 @@
   </header>
   
   <div id="content">
+    <!-- LEFT SIDEBAR -->
     <div id="left">
       <p>
         APPLICATIONS
@@ -52,8 +57,30 @@
         Writer
       </p>
     </div>
+    
     <hr>
+    
+    <!-- GAME AREA -->
     <div id="right">
+      
+      <!-- Result Modal -->
+      <div id="modalholder">
+        <div id="modal" style="display: none;">
+          <span id="title">
+            BAKING RESULT
+          </span>
+          <hr>
+          <span id="result_text">
+            Baking result description. <br> Action.
+          </span>
+          <div class="button_holder">
+            <div id = "rb1" class = "button button_selected">TRY AGAIN</div>
+            <div id = "rb2" class = "button">EXIT BAKEBOT</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Main Game Elements -->
       <p style="float: right">Close: ESC</p>
       <p>Welcome to BakeBot Σ:)</p>
       <p>Select three (3) ingredients with the UP &amp; DOWN keys and ENTER to prepare a shiny treat! But be careful not to run out! We only have so much of each ingredient here. Happy baking!</p>
@@ -71,26 +98,8 @@
     <span class="botright">29/02/20XX <p id = "time"></p></span>
   </footer>
   
-  <div id="modalholder">
-    <a href="intro.html" id = "home" class="gamehome" title="restart game">«═</a>
-    
-    <div id="modal" style="display: none;">
-      <span id="title">
-        BAKING RESULT
-      </span>
-      <hr>
-      <span id="result_text">
-        Baking result description. <br> Action.
-      </span>
-      <div class="button_holder">
-        <div id = "rb1" class = "button button_selected">TRY AGAIN</div>
-        <div id = "rb2" class = "button">EXIT BAKEBOT</div>
-      </div>
-    </div>
-  </div>
-  
   <script src="js/data.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/game.js"></script>
   <script src="js/common.js"></script>
 </body>
 </html>

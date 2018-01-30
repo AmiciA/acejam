@@ -1,9 +1,5 @@
-/* --- RESETS --- */
-* {  margin: 0;  padding: 0;  }
-html, body {  height: 100%;  }
-
-
 /* --- UNIVERSAL STYLES --- */
+/* Styles for Intro and Game pages; the 'screen' UI */
 body {
   display: flex;
   flex-direction: column;
@@ -12,25 +8,37 @@ body {
   color: #00ff00;
   font-family: 'More Perfect DOS VGA', monospace;
   background: linear-gradient(
-  to bottom,
-  #0b0b0b,
-  #0b0b0b 50%,
-  #0d0d0d 50%,
-  #0d0d0d
+    to bottom,
+    #0b0b0b,
+    #0b0b0b 50%,
+    #0d0d0d 50%,
+    #0d0d0d
   );
   background-size: 100% 10px;
 }
 
-#content {
-  flex: 1 0 auto;
+header, footer {
   margin: 0 20px;
-  display: flex;
+  text-align: right;
 }
 
+hr {
+  border-color: #00ff00;
+}
+
+/* Page Wrapper */
+#content {
+  display: flex;
+  flex: 1 0 auto;
+  margin: 0 20px;
+}
+
+/* Left Sidebar */
 #left {
   margin: 20px 20px 0 0;
 }
 
+/* Game Area */
 #right {
   margin: 20px 0 20px 20px;
 }
@@ -39,39 +47,18 @@ body {
   margin-bottom: 20px;
 }
 
-header, footer {
-  margin: 0 20px;
-  text-align: right;
-}
 
-#home {
-  float: left;
-  text-decoration: none;
-  color: #00ff00;
-}
-#home:hover {
-  background-color: #00ff00;
-  color: #0b0b0b;
-}
+/* --- INTRO STYLES --- */
+/* Styles for the introductory conversation */
 
-.gamehome {
-  position: absolute;
-  top: 0;
-  left: 20px;
-}
-
-hr {
-  border-color: #00ff00;
-}
-
+/* Incoming Message Highlight */
 .hilite {
   color: #0b0b0b;
   background-color: #00ff00;
   display: inline;
 }
 
-
-/* --- INTRO TEXT ANIMATIONS --- */
+/* Manual Cursor Blinkage (no TypeIt) */
 .input {
   animation: blink-anim 1.25s steps(2, start) infinite;
 }
@@ -79,6 +66,7 @@ hr {
   to {  visibility: hidden;  }
 }
 
+/* Shakey Text Animation */
 .thought {
   transform-origin: 100px 50%;
   animation: hover-anim .5s infinite;
@@ -104,11 +92,10 @@ hr {
 }
 
 
-/* --- GAME STYLES --- */
-li {
-  list-style-type: none;
-}
+/* --- GAME AREA STYLES --- */
+/* Styles used only during the game */
 
+/* Update Header After Modal Close*/
 .resultsflash {
   animation: flashout-anim 3s 1;
 }
@@ -123,13 +110,14 @@ li {
   }
 }
 
+/* Modal */
 #modalholder {
+  display: flex;
+  position: absolute;
   width: 100%;
   height: 100%;
-  position: absolute;
   top: 0;
   left: 0;
-  display: flex;
   justify-content: center;
   align-items: center;
 }
@@ -168,6 +156,7 @@ li {
   margin-bottom: 20px;
 }
 
+/* Button: Default & Selected */
 .button {
   display: flex;
   flex: 1 0 auto;
@@ -193,7 +182,12 @@ li {
   }
 }
 
+
 /* --- GAME LOGIC --- */
+/* Styles added and removed in JS */
+
+li {  list-style-type: none;  }
+
 li.active {
   color: #0b0b0b;
   background-color: #00ff00;

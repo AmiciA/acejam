@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Ace Baker</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/style_splash.css">
+</head>
+    
+<body>
+  <div id="wrapper">
+    <h1>ACE BAKER</h1>
+    <h2>An informative <em>pixelated</em> retrofuturistic cyberpunk cake-baking minigame, made in a month for <a href="https://itch.io/jam/ace-jam">Ace Jam</a>!</h2>
+    
+    <hr>
+    <p><em>FYI</em>, this game can only be played with a keyboard. :/ Retrofuturism has its downsides, too. And check dem <a href ="https://github.com/AmiciA/acejam">credits</a>, too.</p>
+    <div class="button button_selected">Press ENTER to play!</div>  
+  </div>
+  
+
+  <script>
+    document.addEventListener('keydown', function(event) {
+      // Enter
+      if (event.which === 13) {
+        document.location.href = "intro.html";
+      }
+    }, false);
+  </script>
+</body>
+</html>

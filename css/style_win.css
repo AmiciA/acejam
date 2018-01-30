@@ -1,0 +1,48 @@
+/* --- PAGE STYLES --- */
+body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  
+  font-size: 18px; 
+  color: #ffffff;
+  font-family: 'More Perfect DOS VGA', monospace;  
+  background-color: #0b101a;
+}
+
+/* Top Gif */
+body img {
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+}
+
+
+#button_holder {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  align-items: center;
+  
+  background: url(../assets/endimages/youwin_static.png) no-repeat center;
+}
+
+.button {
+  width: 35%;
+  padding: 10px 0;
+  margin: 10px;
+  border: 2px solid #121724;
+  background-color: #ffffff;
+  color: #0b101a;
+  text-align: center;
+}
+
+.button_selected {
+  animation: pulse-anim 1.25s steps(2, start) infinite;
+}
+@keyframes pulse-anim {
+  to {
+    outline: 2px solid rgba(255, 255, 255, 1);
+  }
+}

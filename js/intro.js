@@ -1,6 +1,7 @@
-// TypeIt instances
+/* --- INITIAL VARIABLES --- */
+// Player's 'Typing'
 var typeitA3 = new TypeIt('.typeitA3', {
-  speed: 25,
+  speed: 75,
   cursorChar: '█',
   lifeLike: true,
   callback: typeitA3_response
@@ -16,13 +17,13 @@ var typeitA5 = new TypeIt('.typeitA5', {
 var beepAlert = new Audio('assets/alert.mp3');
 var beepLoad = new Audio('assets/load.mp3');
 
-// Flags
+// Conversation Position Flags
 var flag1 = false;
 var flag2 = false;
 var flag3 = false;
 var flag4 = false;
 
-// Conversation markers
+// HTML Conversation Lines
 var s0 = document.getElementById('s0');
 var a1 = document.getElementById('a1');
 var b2 = document.getElementById('b2');
@@ -46,7 +47,8 @@ function func() {
 
 
 /* --- START OF USER INPUT --- */
-document.addEventListener('keydown', function(event) { //console.log('f1: ' + flag1 + '; f2: ' + flag2 + '; f3: ' + flag3 + '; f4: ' + flag4);
+document.addEventListener('keydown', function(event) {
+  // Waiting On Player's 1st Input
   if (!flag1) {
     // player answers system question
     removeClass(a1, 'input');
@@ -54,18 +56,18 @@ document.addEventListener('keydown', function(event) { //console.log('f1: ' + fl
     
     // Nora's response is waiting
     b2.style.visibility = 'visible';
-    setTimeout(r, 2000);
+    setTimeout(r, 1000);
     function r() {
       removeClass(b2, 'input');
       addClass(b2, 'hilite');
       beepAlert.play();
       b2.innerHTML = 'Hiya love! They\'re closing up the bitcoin mine a tad early today, so I\'ll be off in just a bit. I can\'t wait to come home and plug into the Game of Scones finale! Feels like I\'ve been waiting xever for this! Hope you\'ve got some luscious snacks prepped like I asked!';
       
-      //player's input prompt appears
+      // player's input prompt appears
       a3.style.visibility = 'visible';
       
       // player's thought is waiting
-      setTimeout(s, 2000);
+      setTimeout(s, 7000);
       function s() {
         a3x.style.visibility = 'visible';
         flag1 = true;
@@ -73,6 +75,7 @@ document.addEventListener('keydown', function(event) { //console.log('f1: ' + fl
     }
   }
   
+  // Waiting On Player's 2nd Input
   else if (flag1 && !flag2) {
     // remove player's thought
     a3x.style.display = 'none';
@@ -83,6 +86,7 @@ document.addEventListener('keydown', function(event) { //console.log('f1: ' + fl
     flag2 = true;
   }
   
+  // Waiting On Player's 3rd Input
   else if (flag1 && flag2 && flag3 && !flag4) {
     // remove player's thought
     a5x.style.display = 'none';
@@ -95,7 +99,7 @@ document.addEventListener('keydown', function(event) { //console.log('f1: ' + fl
 
 
 /* --- TYPEIT CALLBACKS, USER INPUT CONTINUED ---*/
-// last bit of conversation
+// Last Nora Message
 function typeitA3_response() {
   if (flag1 && flag2) {
     //remove previous cursor and show Nora's response is waiting
@@ -121,7 +125,7 @@ function typeitA3_response() {
   }  
 }
 
-// end sequence, load next page
+// BakeBot Sequence > Load Next Page
 function typeitA5_response() {
   if (flag4 == true) {
     setTimeout(r, 1000);
@@ -141,7 +145,7 @@ function typeitA5_response() {
           
           setTimeout(u, 1000);
           function u() {
-            document.location.href = 'index.html';
+            document.location.href = 'game.html';
           }
         }
       }

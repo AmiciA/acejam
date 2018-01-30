@@ -1,5 +1,5 @@
 /* --- LIST OF INGREDIENTS --- */
-// [tasteValue, alien_name, inventory amount, result-noun, result-adj, selection-market] (alien_image ASSIGNED BY INDEX)
+// [X][tasteValue, alien_name, inventory amount, result-noun, result-adj, selection-marker] (alien_image ASSIGNED BY INDEX)
 var ingredientList = [
   [+2, 'Gruzz™',              3, 'honey', ' honeyed',           false],
   [+2, 'elma',                3, 'starfruit', ' fruity',        false],
@@ -15,10 +15,37 @@ var ingredientList = [
   [-1, 'mesh',                3, 'grass', ' grassy',            false],
 ];
 
-// [yum, okk, eww]
-var savedCakes = [0, 0, 0];
-
 // Randomize list order - messes with selection from ingredientList array, don't implement
 /*for (var i = list.children.length; i >= 0; i--) {
     list.appendChild(list.children[Math.random() * i | 0]);
 }*/
+
+
+/* --- USER-CREATED CAKES --- */
+// [yum, okk, eww]
+var savedCakes = [0, 0, 0];
+
+
+/* --- SHOWING REAL TIME --- */
+// Add 0 for single digits
+function checkTime(i) {
+  if (i < 10) {  i = "0" + i;  }
+  return i;
+}
+
+// Get the time
+function startTime() {
+  var today = new Date();
+  var h = today.getHours();
+  var m = today.getMinutes();
+  var s = today.getSeconds();
+  
+  m = checkTime(m);
+  s = checkTime(s);
+  document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
+  document.getElementById('time').style.display = 'inline';
+  t = setTimeout(function () {
+    startTime()
+  }, 500);
+}
+startTime();

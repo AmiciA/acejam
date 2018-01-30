@@ -1,9 +1,4 @@
-/* --- RESETS --- */
-* {  margin: 0;  padding: 0;  }
-html, body {  height: 100%;  }
-
-
-/* --- UNIVERSAL STYLES --- */
+/* --- PAGE STYLES --- */
 body {
   display: flex;
   flex-direction: row;
@@ -13,24 +8,24 @@ body {
   color: #ffffff;
   font-family: 'More Perfect DOS VGA', monospace;  
   background: linear-gradient(
-  to bottom,
-  #0b0b0b,
-  #0b0b0b 50%,
-  #0d0d0d 50%,
-  #0d0d0d
+    to bottom,
+    #0b0b0b,
+    #0b0b0b 50%,
+    #0d0d0d 50%,
+    #0d0d0d
   );
   background-size: 100% 10px;
 }
 
+/* Image + Subtitle Area */
 #left {
-  width: 45%;
-  height: 80%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-self: center;
   align-items: center;
-  //margin: 20px 20px 0 0;
+  width: 45%;
+  height: 80%;
 }
 
 #left img, #left span {
@@ -49,10 +44,12 @@ body {
   }
 }
 
+/* Modal */
 #right {
+  align-self: center;
   width: 45%;
   height: auto;
-  align-self: center;
+  
   background-color: #0000ff;
   color: #ffffff;
   outline: 2px solid #0000ff;
@@ -64,6 +61,7 @@ body {
   padding: 10px;
 }
 
+/* Recording Icon */
 .title::after {
   content: '';
   width: 12px;
@@ -81,24 +79,27 @@ body {
   }
 }
 
+/* Conversation Area */
 .convo {
   padding: 20px 10px;
 }
 
+/* Incoming Message Highlight */
 .hilite {
   color: #0000ff;
   background-color: #ffffff;
   display: inline;
 }
 
+/* Alexa Highlight */
 .alexa {
   border: 1px solid #ffffff;
   padding: 5px;
   display: inline;
 }
 
+/* Button: Default & Selected */
 #button {
-  display: none;
   background-color: #ffffff;
   color: #0000ff;
   border: 2px solid #0000ff;

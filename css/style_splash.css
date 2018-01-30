@@ -1,0 +1,82 @@
+/* --- PAGE STYLES --- */
+body {
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  
+  font-size: 18px; 
+  color: #ffffff;
+  font-family: 'More Perfect DOS VGA', monospace;  
+  background: #0b101a url(../assets/endimages/youwin_static.png) repeat-y center;
+}
+
+#wrapper {
+  max-width: 500px;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 15px;
+  color: #c694f8;
+  font-size: 100px;
+  line-height: 80px;
+  text-shadow:  0px 1px rebeccapurple, 
+                0px 2px rebeccapurple, 
+                0px 3px rebeccapurple;
+}
+
+h2 {
+  line-height: 28px;
+  font-size: 20px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 200;
+}
+
+a {
+  padding: 2px;
+  text-decoration: none;
+  color: white;
+  border-bottom: 2px solid white;
+}
+a:hover {  background: rebeccapurple;  }
+
+em {
+  font-style: normal;
+  font-family: 'More Perfect DOS VGA', monospace;
+  padding: 2px;
+  background-color: rgba(255, 255, 255, .1);
+}
+
+hr {
+  margin: 20px 0;
+}
+
+p {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+}
+
+.button {
+  width: 80%;
+  padding: 10px 0;
+  border: 2px solid #121724;
+  background-color: #ffffff;
+  color: #0b101a;
+  text-align: center;
+  margin: 20px auto;
+}
+
+.button_selected {
+  animation: pulse-anim 1.25s steps(2, start) infinite;
+}
+@keyframes pulse-anim {
+  to {
+    outline: 2px solid rgba(255, 255, 255, 1);
+  }
+}
