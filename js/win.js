@@ -30,7 +30,7 @@ document.addEventListener('keydown', function(event) {
       document.location.href = "http://www.asexuality.org/";
     }
     else if (winBtnContinue == true) {
-      document.location.href = "intro.html";
+      document.location.href = "splash.html";
     }
   }
 }, false);
