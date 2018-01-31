@@ -1,5 +1,6 @@
 # Ace Baker
-## A cake-baking game about an asexual couple in _the future_.
+## About
+**A cake-baking game about an asexual couple in _the future_.**
 Made by [Anthony Amici](https://medium.com/@AnthonyAmici) in ~~a month~~ half a month for [Ace Jam](https://itch.io/jam/ace-jam). Bake some questionable cakes and maybe learn a thing or two...
 
 ## Credits
