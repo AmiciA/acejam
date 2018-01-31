@@ -1,25 +1,22 @@
 /* --- INITIAL VARIABLES --- */
 /* Result Modal */
-var winBtnContinue = false;
-var wb1 = document.getElementById('wb1');
-var wb2 = document.getElementById('wb2');
-
-
-
+var winBtnContinue = true;
+var wb1 = document.getElementById('wb1');  //top, play again
+var wb2 = document.getElementById('wb2');  //bot, cake > sex
 
 
 /* --- BUTTON TOGGLING --- */
 document.addEventListener('keydown', function(event) {
   // Down
-  if (event.which === 40 && winBtnContinue != true) {
-    winBtnContinue = true;
+  if (event.which === 40 && winBtnContinue == true) {
+    winBtnContinue = false;
     removeClass(wb1, 'button_selected');
     addClass(wb2, 'button_selected');
   }
   
   // Up
-  else if (event.which === 38 && winBtnContinue == true) {
-    winBtnContinue = false;
+  else if (event.which === 38 && winBtnContinue != true) {
+    winBtnContinue = true;
     removeClass(wb2, 'button_selected');
     addClass(wb1, 'button_selected');
   }
