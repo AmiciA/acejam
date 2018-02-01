@@ -24,10 +24,11 @@ document.addEventListener('keydown', function(event) {
   // Enter
   else if (event.which === 13) {
     if (winBtnContinue != true) {
-      document.location.href = "http://www.asexuality.org/";
+      //document.location.href = "http://www.asexuality.org/";
+      window.open('http://www.asexuality.org/');
     }
     else if (winBtnContinue == true) {
-      document.location.href = "splash.html";
+      document.location.href = "index.html";
     }
   }
 }, false);
